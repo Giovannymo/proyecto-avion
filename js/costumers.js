@@ -14,8 +14,21 @@ const listCustomers = []
 $form.addEventListener('click', save)
 $tableBody.addEventListener('click', remove)
 
+
+//Elimina de la tabla y del arreglo listCostumers
 function remove(e){
-    const select = e.target.className
+    const select = e.target
+    const id = select.parentNode.parentNode.dataset.id
+    
+    if(select.id === 'btnRemove'){
+        for(const element of listCustomers){
+            if(element.id === id){
+                const index = listCustomers.indexOf(element)
+                listCustomers.splice(Number(index), 1)
+            }
+        }
+    }
+     return addTable()
 }
 
 
@@ -73,6 +86,7 @@ function addTable(){
     //Recorre la lista y accede al value con la key recorrida    
     for(const user of listCustomers){
         const $row = document.createElement('tr')
+        $row.setAttribute('data-id', user.id)
         for(const prop in user){
             
             const $column = document.createElement('td')
@@ -81,8 +95,9 @@ function addTable(){
             if(prop === 'nacionality'){
                 const $columnTrash = document.createElement('td')
                 const $btnTrash = document.createElement('button')
+                $btnTrash.id = 'btnRemove'
                 $btnTrash.className += "btn btn-danger"
-                $btnTrash.innerHTML = `<i id="btnRemove" class="fa-solid fa-trash" style="color: #black;"></i>`
+                $btnTrash.textContent = 'Eliminar'
                 $columnTrash.appendChild($btnTrash)
                 $row.appendChild($columnTrash)
             }
