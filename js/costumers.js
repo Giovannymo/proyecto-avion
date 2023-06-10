@@ -7,12 +7,26 @@ const $email = document.getElementById('email')
 const $birthday = document.getElementById('birthday')
 const $nacionality = document.getElementById('nacionality')
 const $tableBody = document.getElementById('containerTable')
+const $idSearch = document.getElementById('id-search')
 
 
 const listCustomers = []
 
 $form.addEventListener('click', save)
 $tableBody.addEventListener('click', remove)
+$idSearch.addEventListener('keyup', search)
+
+
+//Busca la columna con la clase cliente(id input) y lo compara con el search input
+function search(e){
+
+    document.querySelectorAll('.client').forEach(element => {
+        element.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+        ? element.parentNode.classList.remove("filtro")
+        : element.parentNode.classList.add("filtro")
+    })
+}
+
 
 
 //Elimina de la tabla y del arreglo listCostumers
@@ -87,11 +101,16 @@ function addTable(){
     for(const user of listCustomers){
         const $row = document.createElement('tr')
         $row.setAttribute('data-id', user.id)
+
         for(const prop in user){
             
             const $column = document.createElement('td')
+            if(prop === 'id'){
+                $column.setAttribute('class', 'client')
+            }
             $column.textContent = user[prop]
             $row.appendChild($column)
+
             if(prop === 'nacionality'){
                 const $columnTrash = document.createElement('td')
                 const $btnTrash = document.createElement('button')
