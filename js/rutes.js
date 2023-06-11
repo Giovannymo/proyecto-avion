@@ -41,11 +41,8 @@ function saveRute(e){
 
 //agrega a la tabla
 
-function addTable(){
-  
+function addTable(){ 
  const fragment = document.createDocumentFragment() 
-
-  
 
   for(const rute of listRutes){
     const row = document.createElement('tr')
@@ -89,16 +86,11 @@ function remove(e){
   if(select.classList[1] === 'btn-danger'){
     const rowDeteled = select.parentNode.parentNode
     $table.removeChild(rowDeteled)
-
-
     for(const rute of listRutes){
       if(Number(select.id) === rute.id){
         let i = listRutes.indexOf(rute)
         listRutes.splice(i,1)
-
         saveLocalStorage(listRutes)
-
-
       }
 
     }
@@ -125,14 +117,12 @@ function reset(){
 
 //Guarda informacion
 function saveLocalStorage(list){
-
   localStorage.setItem("rutes", JSON.stringify(list))
 
 }
 
 //Recibe la informacion
-function getLocalStorage(){
-  
+function getLocalStorage(){ 
   const listRutes = localStorage.getItem('rutes')
 
   return JSON.parse((listRutes))
