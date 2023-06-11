@@ -9,7 +9,6 @@ const $nacionality = document.getElementById('nacionality')
 const $tableBody = document.getElementById('containerTable')
 const $idSearch = document.getElementById('id-search')
 
-
 const listCustomers = []
 
 $form.addEventListener('click', save)
