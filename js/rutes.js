@@ -8,14 +8,18 @@ const $btnSave = document.getElementById('btnSaveRute')
 const $table = document.getElementById('table')
 
 let idGenerator =0
-const listRutes = []
+
+const listRutes = getLocalStorage();
+
+
 $btnSave.addEventListener('click', saveRute)
 $table.addEventListener('click', remove)
 
+addTable()
 
 function saveRute(e){
   try{
-    
+
     const rute = {
       id: idGenerator +=1,
       name: $nameRute.value,
@@ -26,7 +30,7 @@ function saveRute(e){
     }
 
     listRutes.push(rute)
-
+    saveLocalStorage(listRutes)
   }catch(err){
     console.log(err);
   }
@@ -40,6 +44,8 @@ function saveRute(e){
 function addTable(){
   
  const fragment = document.createDocumentFragment() 
+
+  
 
   for(const rute of listRutes){
     const row = document.createElement('tr')
@@ -83,11 +89,15 @@ function remove(e){
   if(select.classList[1] === 'btn-danger'){
     const rowDeteled = select.parentNode.parentNode
     $table.removeChild(rowDeteled)
+
+
     for(const rute of listRutes){
-      console.log(select.id, rute.id);
-      if(select.id == rute.id){
+      if(Number(select.id) === rute.id){
         let i = listRutes.indexOf(rute)
         listRutes.splice(i,1)
+
+        saveLocalStorage(listRutes)
+
 
       }
 
@@ -111,4 +121,19 @@ function reset(){
   $cityFrom.value = '',
   $cityTo.value = '',
   $points.value = ''
+}
+
+//Guarda informacion
+function saveLocalStorage(list){
+
+  localStorage.setItem("rutes", JSON.stringify(list))
+
+}
+
+//Recibe la informacion
+function getLocalStorage(){
+  
+  const listRutes = localStorage.getItem('rutes')
+
+  return JSON.parse((listRutes))
 }
