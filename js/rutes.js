@@ -127,7 +127,6 @@ function getLocalStorage(){
 
   if(rutes){
     return JSON.parse((rutes))
-  }else{
-    return []
   }
+  return []
 }
