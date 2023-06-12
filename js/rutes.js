@@ -123,7 +123,11 @@ function saveLocalStorage(list){
 
 //Recibe la informacion
 function getLocalStorage(){ 
-  const listRutes = localStorage.getItem('rutes')
+  const rutes = localStorage.getItem('rutes')
 
-  return JSON.parse((listRutes))
+  if(rutes){
+    return JSON.parse((rutes))
+  }else{
+    return []
+  }
 }
